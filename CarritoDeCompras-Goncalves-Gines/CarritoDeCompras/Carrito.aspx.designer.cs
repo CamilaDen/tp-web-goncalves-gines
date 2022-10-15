@@ -15,12 +15,12 @@ namespace CarritoDeCompras
     {
 
         /// <summary>
-        /// Control Articulos.
+        /// Control dgvArticulos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView Articulos;
+        protected global::System.Web.UI.WebControls.GridView dgvArticulos;
     }
 }

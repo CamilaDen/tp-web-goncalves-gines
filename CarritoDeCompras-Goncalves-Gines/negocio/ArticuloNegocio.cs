@@ -279,5 +279,38 @@ namespace negocio
                 throw ex;
             }
         }
+    
+        public Articulo buscarPorId(int Id)
+        {
+            Articulo articulo = new Articulo();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion Marca, A.IdCategoria ,C.Descripcion Categoria, A.ImagenUrl, A.Precio FROM ARTICULOS A INNER JOIN MARCAS M ON M.Id = A.IdMarca INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria AND A.Id=" + Id;
+
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+                datos.Lector.Read();
+                articulo.Id = (int)datos.Lector["Id"];
+                articulo.Codigo = (string)datos.Lector["Codigo"];
+                articulo.Nombre = (string)datos.Lector["Nombre"];
+                articulo.Descripcion = (string)datos.Lector["Descripcion"];
+                if (!(datos.Lector["ImagenUrl"] is DBNull))
+                    articulo.ImagenUrl = (string)datos.Lector["ImagenUrl"];
+                articulo.Precio = (decimal)datos.Lector["Precio"];
+                articulo.Marca = new Marca();
+                articulo.Marca.Id = (int)datos.Lector["IdMarca"];
+                articulo.Marca.Descripcion = (string)datos.Lector["Marca"];
+                articulo.Categoria = new Categoria();
+                articulo.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                articulo.Categoria.Descripcion = (string)datos.Lector["Categoria"];
+
+                return articulo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

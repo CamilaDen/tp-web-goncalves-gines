@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    internal class ItemCarrito
+    public class ItemCarrito
     {
+        public Articulo articulo { get; set; }     
         public int cantidad { get; set; }
-        public Articulo articulo { get; set; }
         public decimal precioTotal { get; set; }
     }
 }

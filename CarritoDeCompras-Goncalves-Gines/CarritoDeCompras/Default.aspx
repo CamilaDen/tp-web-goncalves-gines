@@ -5,11 +5,15 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
     
     <div class="top-0 " style="text-align: right">
+        <i></i>
         <button type="button" class="btn btn-primary position-relative">
-         Articulos Seleccionados
+         <span class="material-symbols-outlined">shopping_cart</span>
          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          4
-         <span class="visually-hidden">unread messages</span>
+           <%
+               if (Session["ListaItemCarrito"] != null)
+                   ((List<dominio.ItemCarrito>)(Session["ListaItemCarrito"])).Count().ToString();
+                
+           %>
          </span>
         </button>
     </div>
@@ -44,15 +48,6 @@
     </div>
 
     <h1>Listado de Artículos</h1>
-    <%-- <asp:GridView ID="dgvArticulos" runat="server" CssClass="table" AutoGenerateColumns="false">
-        <Columns>
-            <asp:BoundField HeaderText="Codigo" DataField="Codigo" />
-            <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
-            <asp:BoundField HeaderText="Descripcion" DataField="Descripcion" />
-            <asp:BoundField HeaderText="Marca" DataField="Marca.Descripcion" />
-            <asp:BoundField HeaderText="Categoria" DataField="Categoria.Descripcion" />
-        </Columns>
-    </asp:GridView>--%>
     <div class="row row-cols-1 row-cols-md-3 g-4" >
         <%--     <%
             foreach (dominio.Articulo articulo in ListaArticulo)
@@ -79,7 +74,7 @@
                             <h5 class="card-title"><%#Eval("Nombre") %></h5>
                             <p class="card-text"><%#Eval("Descripcion") %></p>
                             <div>
-                            <asp:Button Text="Comprar" CssClass="btn btn-success  " runat="server" ID="btnComprar" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnComprar_Click" />
+                            <asp:Button Text="Comprar" CssClass="btn btn-success" runat="server" ID="btnComprar" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnComprar_Click" />
                             </div>
                         </div>
                     </div>
