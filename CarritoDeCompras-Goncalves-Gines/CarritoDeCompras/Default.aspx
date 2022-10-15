@@ -2,8 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-      
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
     
     <div class="top-0 " style="text-align: right">
         <button type="button" class="btn btn-primary position-relative">
@@ -74,14 +73,13 @@
             <ItemTemplate >
     
                 <div class="col">
-                    <div class="card" id="cardArticulo" >
-                        <img src="<%#Eval("ImagenUrl") %>" class="card-img-top" alt="imagen de producto">
-                        <div class="card-body">
+                    <div class="card" id="cardArticulo" style="width: 20rem; height: 30rem;">
+                        <img src="<%#Eval("ImagenUrl") %>" class="card-img-top" alt="imagen de producto" style="width: 20rem; height: 19rem; object-fit: contain;">
+                        <div class="card-body" style="width: 20rem; height: 5rem;">
                             <h5 class="card-title"><%#Eval("Nombre") %></h5>
                             <p class="card-text"><%#Eval("Descripcion") %></p>
                             <div>
-                            <%--<asp:Button Text="Comprar" CssClass="btn btn-success  " runat="server" ID="btnComprar" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnComprar_Click" />--%>
-                            <asp:CommandField ShowSelectButton ="true" SelectText="Comprar" HeaderText="Accion" />
+                            <asp:Button Text="Comprar" CssClass="btn btn-success  " runat="server" ID="btnComprar" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnComprar_Click" />
                             </div>
                         </div>
                     </div>
@@ -90,19 +88,4 @@
             </ItemTemplate>
         </asp:Repeater>
     </div>
-   <%-- 
-       TOAST (Ver bien como funciona con el Js y el tema de que hace getID)
-       <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="..." class="rounded me-2" alt="...">
-                <strong class="me-auto">Bootstrap</strong>
-                <small>11 mins ago</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                Hello, world! This is a toast message.
-            </div>
-        </div>
-    </div>--%>
 </asp:Content>
