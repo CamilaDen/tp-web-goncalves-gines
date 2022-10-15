@@ -22,12 +22,14 @@ namespace CarritoDeCompras
                 repRepetidor.DataBind();
             }
             //dgvArticulos.DataSource = negocio.listarConSP();
-            //dgvArticulos.DataBind();
+            //dgvArticulos.DataBind(); 
         }
 
         protected void btnComprar_Click(object sender, EventArgs e)
         {
             string valor = ((Button)sender).CommandArgument;
+            Session.Add("ArticuloId",valor);  
+            Response.Redirect("Carrito.aspx", false);
         }
     }
 }
