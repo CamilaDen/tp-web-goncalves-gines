@@ -20,27 +20,13 @@
     <hr />
     <div class="row g-3">
           <div class="col-sm-7">
-            <input type="text" class="form-control" placeholder="Producto" aria-label="Producto">
+            <asp:TextBox ID="txtFiltrarProducto" class="form-control" runat="server" placeholder="Producto" aria-label="Producto"></asp:TextBox>
           </div>
           <div class="col-sm">
-            <div class="btn-group">
-                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Categoria
-                  </button>
-                  <ul class="dropdown-menu">
-                    <lu>Algo1</lu>
-                  </ul>
-            </div>
+           <asp:DropDownList ID="DropDownCategoria" class="form-select" aria-labelledby="Categoria " runat="server" ></asp:DropDownList>
           </div>
          <div class="col-sm">
-            <div class="btn-group">
-                  <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Categoria
-                  </button>
-                  <ul class="dropdown-menu">
-                    <lu>Algo1</lu>
-                  </ul>
-            </div>
+            <asp:DropDownList ID="DropDownMarca" class="form-select" runat="server"></asp:DropDownList>
           </div>
            <div class="col-sm">
                 <asp:Button Text="Buscar" CssClass="btn btn-success  " runat="server" ID="btnFiltrar"/>

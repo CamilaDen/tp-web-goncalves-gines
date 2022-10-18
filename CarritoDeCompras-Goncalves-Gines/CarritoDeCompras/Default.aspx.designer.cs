@@ -15,6 +15,33 @@ namespace CarritoDeCompras
     {
 
         /// <summary>
+        /// Control txtFiltrarProducto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltrarProducto;
+
+        /// <summary>
+        /// Control DropDownCategoria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownCategoria;
+
+        /// <summary>
+        /// Control DropDownMarca.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownMarca;
+
+        /// <summary>
         /// Control btnFiltrar.
         /// </summary>
         /// <remarks>
