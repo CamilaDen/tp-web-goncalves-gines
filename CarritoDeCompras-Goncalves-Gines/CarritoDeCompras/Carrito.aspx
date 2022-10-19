@@ -8,5 +8,6 @@
             <asp:BoundField HeaderText="Cantidad" DataField="Cantidad" />
             <asp:BoundField HeaderText="Precio" DataField="precioTotal" />
         </Columns>
+
     </asp:GridView>
 </asp:Content>

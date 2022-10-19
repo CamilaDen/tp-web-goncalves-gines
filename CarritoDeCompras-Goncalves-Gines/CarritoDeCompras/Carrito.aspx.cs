@@ -53,6 +53,7 @@ namespace CarritoDeCompras
                 {
                     dgvArticulos.DataSource = ((List<ItemCarrito>)(Session["ListaItemCarrito"]));
                     dgvArticulos.DataBind();
+                   
                 }
                
 
@@ -60,6 +61,7 @@ namespace CarritoDeCompras
             catch (Exception ex) { 
 
             }
+            
             
         }
     }

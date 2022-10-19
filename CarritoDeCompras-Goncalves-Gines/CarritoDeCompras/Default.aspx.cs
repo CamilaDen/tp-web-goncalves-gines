@@ -12,40 +12,53 @@ namespace CarritoDeCompras
     public partial class Default : System.Web.UI.Page
     {
         public List<Articulo> ListaArticulo { get; set; }
+        public List<Categoria> listaCat { get; set; }
+        public List<Marca> listaMar { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
-            ListaArticulo = negocio.listarConSP(); 
+            ListaArticulo = negocio.listarConSP();
             if (!IsPostBack)
             {
                 repRepetidor.DataSource = ListaArticulo;
                 repRepetidor.DataBind();
+                DropDownCategoria.Items.Insert(0, "Filtrar Categoria");
+                DropDownMarca.Items.Insert(0, "Filtrar Marca");
+                cargarDropDowns();
             }
-            //dgvArticulos.DataSource = negocio.listarConSP();
-            //dgvArticulos.DataBind(); 
-               DropDownCategoria.Items.Add("Celulares");
-               DropDownCategoria.Items.Add("Televisores");
-               DropDownCategoria.Items.Add("Tablets");
-               DropDownCategoria.Items.Add("Monitores");
-               DropDownMarca.Items.Add("Samsung");
-               DropDownMarca.Items.Add("Apple");
-               DropDownMarca.Items.Add("Motorola");
-               DropDownMarca.Items.Add("Sony");
+            else
+            {
+                if (DropDownMarca.SelectedIndex <= 0 && DropDownCategoria.SelectedIndex <= 0)
+                {
+                    limpiarDropDowns();
+                    cargarDropDowns();
+                }
+
+
+            }
+            /*if (btnFiltrar())
+            {
+                limpiarDropDowns();
+                cargarDropDowns();
+            }*/
+
         }
 
         protected void btnComprar_Click(object sender, EventArgs e)
         {
             string valor = ((Button)sender).CommandArgument;
-            Session.Add("ArticuloId",valor);  
-            Response.Redirect("Carrito.aspx", false);
+            Session.Add("ArticuloId", valor);
+            //Response.Redirect("Carrito.aspx", false);
         }
 
-        protected void btnFiltrar_Click(object sender, EventArgs e) {
+        protected void btnFiltrar_Click1(object sender, EventArgs e)
+        {
 
-            ArticuloNegocio lista = new ArticuloNegocio();
+            Articulo lista = new Articulo();
             try
             {
                 filtrarBusqueda();
+                
             }
             catch (Exception ex)
             {
@@ -53,40 +66,82 @@ namespace CarritoDeCompras
                 throw;
             }
 
-            limpiarFiltros();
         }
 
-        protected List<Articulo> filtrarBusqueda(){
+        protected List<Articulo> filtrarBusqueda()
+        {
 
             var listaFiltrada = new List<Articulo>();
             var conexion = new negocio.AccesoDatos();
-           
-            string descripcionProducto = txtFiltrarProducto.Text;
-            string opcionMarca = DropDownMarca.SelectedItem.ToString(); 
-            string opcionCategoria = DropDownCategoria.SelectedItem.ToString();
-            if ( descripcionProducto != null && opcionCategoria != null && opcionMarca != null )
-            {
-                string consulta = "Select * FROM Articulos A inner join CATEGORIAS C ON C.Id = A.IdCategoria inner join MARCAS M ON M.Id = A.IdMarca Where A.Descripcion Like '%"+descripcionProducto+"%' AND C.Descripcion Like '%"+ opcionCategoria +"%' AND M.Descripcion Like '%"+ opcionMarca +"%'";
-                conexion.setearConsulta(consulta);
-                conexion.ejecutarLectura();
-                
-            }
-            else {
-                //Faltaria Mostrar Cartel de alerta por falta de seleccion mediante label.
-            }
-            while (conexion.Lector.Read()) { 
 
-                       
+            //string opcionProducto = DropDownProducto.ToString();
+            string opcionMarca = DropDownMarca.SelectedItem.ToString();
+            string opcionCategoria = DropDownCategoria.SelectedItem.ToString();
+            if (opcionCategoria != null && opcionMarca != null)
+            {
+                if (opcionCategoria != "Filtrar Categoria" && opcionMarca != "Filtrar Marca")
+                {
+
+                    string consulta = "Select  * FROM ARTICULOS A Inner join Categorias C on C.Id = A.IdCategoria Inner join MARCAS M on M.Id = A.IdMarca Where C.Descripcion Like '%" + opcionCategoria + "%' AND M.Descripcion Like '%" + opcionMarca + "%'";
+                    conexion.setearConsulta(consulta);
+                    conexion.ejecutarLectura();
+
+                    while (conexion.Lector.Read())
+                    {
+                        Articulo a = new Articulo();
+                        a.Id = (int)conexion.Lector["Id"];
+                        a.Nombre = (string)conexion.Lector["Nombre"];
+                        a.Descripcion = (string)conexion.Lector["Descripcion"];
+                        if (!(conexion.Lector["ImagenUrl"] is DBNull))
+                            a.ImagenUrl = (string)conexion.Lector["ImagenUrl"];
+
+                        listaFiltrada.Add(a);
+                    }
+                    if (Page.IsPostBack)
+                    {
+                        repRepetidor.DataSource = listaFiltrada;
+                        repRepetidor.DataBind();
+                    }
+
+
+                }
+                else
+                {
+                    //mensaje para validar seleccion
+                }
+
+
             }
+
             return listaFiltrada;
         }
 
-        protected void limpiarFiltros()
+        private void cargarDropDowns()
         {
-            DropDownCategoria.SelectedIndex = -1;
-            DropDownMarca.SelectedIndex = -1;
-            btnFiltrar.Enabled = true;
-            txtFiltrarProducto.Text = null;
+
+            CategoriaNegocio nC = new CategoriaNegocio();
+            listaCat = nC.listar();
+
+            foreach (var item in listaCat)
+            {
+                DropDownCategoria.Items.Add(item.Descripcion);
+            }
+
+            MarcaNegocio nM = new MarcaNegocio();
+            listaMar = nM.listar();
+            foreach (var item in listaMar)
+            {
+                DropDownMarca.Items.Add(item.Descripcion);
+            }
+
         }
+        private void limpiarDropDowns()
+        {
+            DropDownCategoria.Items.Clear();
+            DropDownMarca.Items.Clear();
+        }
+
+
+
     }
 }
