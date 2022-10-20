@@ -14,6 +14,7 @@ namespace CarritoDeCompras
         public List<Articulo> ListaArticulo { get; set; }
         public List<Categoria> listaCat { get; set; }
         public List<Marca> listaMar { get; set; }
+        public int cantArticulos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -47,8 +48,38 @@ namespace CarritoDeCompras
         protected void btnComprar_Click(object sender, EventArgs e)
         {
             string valor = ((Button)sender).CommandArgument;
-            Session.Add("ArticuloId", valor);
-            //Response.Redirect("Carrito.aspx", false);
+            List<ItemCarrito> ListaItemCarrito;
+
+            if (valor != null)
+            {
+                int Id = int.Parse(valor);
+
+                if (Session["ListaItemCarrito"] == null)
+                {
+                    ListaItemCarrito = new List<ItemCarrito>();
+                    Session.Add("ListaItemCarrito", ListaItemCarrito);
+                }
+                int posItem = ((List<ItemCarrito>)(Session["ListaItemCarrito"])).FindIndex(x => x.articulo.Id == Id);
+
+                if (posItem == -1)
+                {
+                    ArticuloNegocio negocio = new ArticuloNegocio();
+                    Articulo articulo = new Articulo();
+                    articulo = negocio.buscarPorId(Id);
+                    ItemCarrito item = new ItemCarrito
+                    {
+                        articulo = articulo,
+                        cantidad = 1,
+                        precioTotal = articulo.Precio
+                    };
+                    ((List<ItemCarrito>)(Session["ListaItemCarrito"])).Add(item);
+                }
+                else
+                {
+                    ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad++;
+                    ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].precioTotal *= ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad;
+                }
+            }
         }
 
         protected void btnFiltrar_Click1(object sender, EventArgs e)

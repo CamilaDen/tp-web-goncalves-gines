@@ -13,56 +13,90 @@ namespace CarritoDeCompras
    
     public partial class Carrito : System.Web.UI.Page
     {
-        public List<ItemCarrito> ListaItemCarrito { get; set; }
+        public decimal totalCarrito { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            try {
-                if (Session["ArticuloId"] != null)
-                {
-                    int Id = int.Parse(Session["ArticuloId"].ToString());
-                    Session.Remove("ArticuloId");
-
-
-                    if (Session["ListaItemCarrito"] == null)
-                    {
-                        ListaItemCarrito = new List<ItemCarrito>();
-                        Session.Add("ListaItemCarrito", ListaItemCarrito);
-                    }
-                    int posItem = ((List<ItemCarrito>)(Session["ListaItemCarrito"])).FindIndex(x => x.articulo.Id == Id);
-
-                    if (posItem == -1)
-                    {
-                        ArticuloNegocio negocio = new ArticuloNegocio();
-                        Articulo articulo = new Articulo();
-                        articulo = negocio.buscarPorId(Id);
-                        ItemCarrito item = new ItemCarrito
-                        {
-                            articulo = articulo,
-                            cantidad = 1,
-                            precioTotal = articulo.Precio
-                        };
-                        ((List<ItemCarrito>)(Session["ListaItemCarrito"])).Add(item);
-                    }
-                    else
-                    {
-                        ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad++;
-                        ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].precioTotal *= ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad;
-                    }                    
-                }
+            try {               
                 if (!IsPostBack)
                 {
                     dgvArticulos.DataSource = ((List<ItemCarrito>)(Session["ListaItemCarrito"]));
                     dgvArticulos.DataBind();
-                   
-                }
-               
-
+                }              
             }
             catch (Exception ex) { 
 
+            }           
+            
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            string valor = ((Button)sender).CommandArgument;
+            if (valor != null)
+            {
+                int Id = int.Parse(valor);
+                int posItem = ((List<ItemCarrito>)(Session["ListaItemCarrito"])).FindIndex(x => x.articulo.Id == Id);
+
+                if (posItem > -1)
+                {
+                    ((List<ItemCarrito>)(Session["ListaItemCarrito"])).RemoveAt(posItem);
+                    dgvArticulos.DataSource = ((List<ItemCarrito>)(Session["ListaItemCarrito"]));
+                    dgvArticulos.DataBind();
+                }
+                if (((List<ItemCarrito>)(Session["ListaItemCarrito"])).Count()==0)
+                {
+                    Session.Remove("ListaItemCarrito");
+                }
             }
-            
-            
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            string valor = ((Button)sender).CommandArgument;
+            if (valor != null)
+            {
+                int Id = int.Parse(valor);
+                int posItem = ((List<ItemCarrito>)(Session["ListaItemCarrito"])).FindIndex(x => x.articulo.Id == Id);
+
+                if (posItem > -1)
+                {
+                    decimal precioUnitario = ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].precioTotal / ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad;
+                    ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad++;
+                    ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].precioTotal = precioUnitario * ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad;
+                    dgvArticulos.DataSource = ((List<ItemCarrito>)(Session["ListaItemCarrito"]));
+                    dgvArticulos.DataBind();
+                }
+            }
+        }
+
+        protected void btnQuitar_Click(object sender, EventArgs e)
+        {
+            string valor = ((Button)sender).CommandArgument;
+            if (valor != null)
+            {
+                int Id = int.Parse(valor);
+                int posItem = ((List<ItemCarrito>)(Session["ListaItemCarrito"])).FindIndex(x => x.articulo.Id == Id);
+
+                if (posItem > -1)
+                {
+                    decimal precioUnitario = ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].precioTotal / ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad;
+                    ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad--;
+                    if(((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad == 0)
+                    {
+                        ((List<ItemCarrito>)(Session["ListaItemCarrito"])).RemoveAt(posItem);
+                    }
+                    else
+                    {
+                        ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].precioTotal = precioUnitario * ((List<ItemCarrito>)(Session["ListaItemCarrito"]))[posItem].cantidad;
+                    }
+                    dgvArticulos.DataSource = ((List<ItemCarrito>)(Session["ListaItemCarrito"]));
+                    dgvArticulos.DataBind();
+                }
+                if (((List<ItemCarrito>)(Session["ListaItemCarrito"])).Count() == 0)
+                {
+                    Session.Remove("ListaItemCarrito");
+                }
+            }
         }
     }
 }

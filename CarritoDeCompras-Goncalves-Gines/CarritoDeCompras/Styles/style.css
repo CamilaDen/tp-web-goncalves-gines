@@ -1,0 +1,17 @@
+﻿
+#cardArticulo {
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 0.2rem;
+}
+
+#cardArticulo:hover {
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+    transform: scale(1.1);
+}
+
+#tituloPrincipal {
+    font-size: 2.5rem;
+    margin-right: 3rem;
+}
