@@ -12,7 +12,7 @@
         else { cantArticulos = 0; };
     %>
 
-    <div class="top-0"style=" position:fixed; padding:20px; margin-top:500px; right:20px; ">
+    <div id="carrito">
         <i></i>
         <button type="button" class="btn btn-primary position-relative " onclick="location.href='Carrito.aspx'">
             <span class="material-symbols-outlined">shopping_cart</span>

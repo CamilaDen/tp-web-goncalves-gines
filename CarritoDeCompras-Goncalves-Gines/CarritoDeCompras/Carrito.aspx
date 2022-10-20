@@ -23,7 +23,7 @@
                 <asp:TemplateField HeaderText="Acciones">
                     <ItemTemplate>
                         <asp:Button Text=" + " CssClass="btn btn-success" runat="server" ID="btnAgregar" CommandArgument='<%#Eval("articulo.Id") %>' CommandName="ArticuloId" OnClick="btnAgregar_Click" />
-                        <asp:Button Text=" - " CssClass="btn btn-dark" runat="server" ID="btnQuitar" CommandArgument='<%#Eval("articulo.Id") %>' CommandName="ArticuloId" OnClick="btnQuitar_Click" />
+                        <asp:Button Text="  - " CssClass="btn btn-dark" runat="server" ID="btnQuitar" CommandArgument='<%#Eval("articulo.Id") %>' CommandName="ArticuloId" OnClick="btnQuitar_Click" />
                         <asp:Button Text="Eliminar" CssClass="btn btn-danger" runat="server" ID="btnEliminar" CommandArgument='<%#Eval("articulo.Id") %>' CommandName="ArticuloId" OnClick="btnEliminar_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>

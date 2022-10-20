@@ -17,7 +17,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark margin-botton">
             <div class="container-fluid">
                 <a id="tituloPrincipal" class="navbar-brand" href="Default.aspx">Mercado Caro</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,16 +33,9 @@
                         </li>
                     </ul>
                 </div>
-            <div class="container-fluid">
-
-              
             </div>
-            </div>
-
-
         </nav>
         <div class="container">
-            
             <div>
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
