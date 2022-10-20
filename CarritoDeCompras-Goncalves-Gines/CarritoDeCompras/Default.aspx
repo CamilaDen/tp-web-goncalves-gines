@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <%
         if (Session["ListaItemCarrito"] != null)
@@ -10,52 +11,34 @@
         }
         else { cantArticulos = 0; };
     %>
-    <div class="top-0 " style="text-align: right">
+
+    <div class="top-0"style=" position:fixed; padding:20px; margin-top:500px; right:20px; ">
         <i></i>
-        <button type="button" class="btn btn-primary position-relative" onclick="location.href='Carrito.aspx'">
+        <button type="button" class="btn btn-primary position-relative " onclick="location.href='Carrito.aspx'">
             <span class="material-symbols-outlined">shopping_cart</span>
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 <%: cantArticulos %>
             </span>
         </button>
     </div>
-    <hr />
-    <div class="row g-3">
+    
+    <div class="row g-3" style="padding-top:20px">
         <div class="col-sm-5">
             <asp:DropDownList ID="DropDownCategoria" class="form-select" AutoPostBack="false" runat="server"></asp:DropDownList>
         </div>
         <div class="col-sm-5">
             <asp:DropDownList ID="DropDownMarca" class="form-select" AutoPostBack="false" runat="server"></asp:DropDownList>
         </div>
-        <%--<div class="col-sm-5">
-            <asp:TextBox ID="txtFiltrarProducto" class="form-control" runat="server" placeholder="Producto" aria-label="Producto"></asp:TextBox>
-              <asp:DropDownList ID="DropDownProducto" class="form-select" AutoPostBack="false" runat="server"></asp:DropDownList>  
-              
-          </div>--%>
         <div class="col-sm-2">
             <asp:Button Text="Buscar" CssClass="btn btn-success " runat="server" ID="btnFiltrar" OnClick="btnFiltrar_Click1" />
         </div>
     </div>
 
-    <h1>Listado de Artículos</h1>
+    <h1 style="padding:20px">Listado de Artículos</h1> 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        <%--     <%
-            foreach (dominio.Articulo articulo in ListaArticulo)
-            {
-        %>
-        <div class="col">
-            <div class="card">
-                <img src="<%:articulo.ImagenUrl %>" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"><%: articulo.Nombre %></h5>
-                    <p class="card-text"><%: articulo.Descripcion %></p>
-                    <button type="button" class="btn btn-success" onclick="">Comprar</button>
-                </div>
-            </div>
-        </div>
-        <%  } %>--%>
+
         <asp:Repeater runat="server" ID="repRepetidor">
-            <ItemTemplate>
+            <ItemTemplate >
 
                 <div class="col">
                     <div class="card" id="cardArticulo" style="width: 20rem; height: 30rem;">
@@ -73,4 +56,9 @@
             </ItemTemplate>
         </asp:Repeater>
     </div>
+    <footer style="margin:30px">
+        <hr />
+
+    </footer>
 </asp:Content>
+
