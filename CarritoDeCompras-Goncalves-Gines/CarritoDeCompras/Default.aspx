@@ -42,7 +42,7 @@
 
                 <div class="col">
                     <div class="card" id="cardArticulo" style="width: 20rem; height: 30rem;">
-                        <img src="<%#Eval("ImagenUrl") %>" class="card-img-top" alt="imagen de producto" style="width: 20rem; height: 19rem; object-fit: contain;">
+                        <img src="<%#Eval("ImagenUrl") %>" class="card-img-top" alt="imagen de producto" style="width: 20rem; height: 19rem; object-fit: contain;" onerror="this.src='https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY='">
                         <div class="card-body" style="width: 20rem; height: 5rem;">
                             <h5 class="card-title"><%#Eval("Nombre") %></h5>
                             <p class="card-text"><%#Eval("Descripcion") %></p>
@@ -56,9 +56,9 @@
             </ItemTemplate>
         </asp:Repeater>
     </div>
-    <footer style="margin:30px">
+<%--    <footer style="margin:30px">
         <hr />
 
-    </footer>
+    </footer>--%>
 </asp:Content>
 

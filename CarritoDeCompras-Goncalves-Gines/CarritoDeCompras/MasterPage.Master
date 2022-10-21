@@ -45,3 +45,10 @@
     </form>
 </body>
 </html>
+<footer>
+    <div class="footerMercado">      
+        <hr />
+        <p>Copyright © 1999-2022 MercadoCaro S.R.L.</p>
+        <p>Calle Falsa 123, Piso 13, CP 1650, San Martin, Buenos Aires</p>        
+    </div>
+</footer>

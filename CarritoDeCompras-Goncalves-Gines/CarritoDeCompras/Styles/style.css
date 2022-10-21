@@ -1,4 +1,8 @@
-﻿
+﻿#form1 {
+    min-height: 800px;
+}
+
+
 #cardArticulo {
     transition: all 0.2s ease;
     margin-top: 1rem;
@@ -18,10 +22,24 @@
 
 #carrito {
     position: fixed;
-    bottom: 50px;
+    bottom: 100px;
     right: 50px;
 }
 
 .margin-botton {
     margin-bottom: 20px;
+}
+
+.footerMercado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.footerMercado p{
+    text-align: center;
+    color: rgb(153 153 153);
+    font-size: 0.80em;
 }
